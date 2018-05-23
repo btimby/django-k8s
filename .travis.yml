@@ -14,5 +14,7 @@ env:
   - DJANGO=1.9
   - DJANGO=1.10
   - DJANGO=1.11
+  - PIPENV_VENV_IN_PROJECT=1
+  - PIPENV_IGNORE_VIRTUALENVS=1
 install: make install
 script: make test
