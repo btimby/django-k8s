@@ -6,15 +6,17 @@ python:
   - "3.5"
   - "3.6"
 env:
-  - DJANGO=1.4
-  - DJANGO=1.5
-  - DJANGO=1.6
-  - DJANGO=1.7
-  - DJANGO=1.8
-  - DJANGO=1.9
-  - DJANGO=1.10
-  - DJANGO=1.11
-  - PIPENV_VENV_IN_PROJECT=1
-  - PIPENV_IGNORE_VIRTUALENVS=1
+  global:
+    - PIPENV_VENV_IN_PROJECT=1
+    - PIPENV_IGNORE_VIRTUALENVS=1
+  matrix:
+    - DJANGO=1.4
+    - DJANGO=1.5
+    - DJANGO=1.6
+    - DJANGO=1.7
+    - DJANGO=1.8
+    - DJANGO=1.9
+    - DJANGO=1.10
+    - DJANGO=1.11
 install: make install
 script: make test
