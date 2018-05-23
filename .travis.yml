@@ -18,5 +18,7 @@ env:
     - DJANGO=1.9
     - DJANGO=1.10
     - DJANGO=1.11
-install: make install
+install:
+  - make install
+  - pipenv install django==${DJANGO}
 script: make test
