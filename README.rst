@@ -48,6 +48,6 @@ database to become available and for the latest migration to be applied.
     $ python manage.py checkmigrations
     Migrations complete.
 
-The above will return code 0 if the database is available and migrations are
-complete or 1 if not. The optional `--wait` flag will cause the command to
+The above will return code ``0`` if the database is available and migrations are
+complete or ``1`` if not. The optional ``--wait`` flag will cause the command to
 wait until both of these conditions are true.
