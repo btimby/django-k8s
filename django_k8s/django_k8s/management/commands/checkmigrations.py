@@ -5,7 +5,7 @@ from django.db.migrations.executor import MigrationExecutor
 from django.db import connections
 
 
-def pending_migrations():
+def count_migrations():
     "Count the number of migrations not yet applied to database(s)"
     nmigrations = 0
     for db_name in connections:
@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         while True:
-            nmigrations = pending_migrations()
+            nmigrations = count_migrations()
 
             if nmigrations == 0:
                 print('There are no pending migrations')

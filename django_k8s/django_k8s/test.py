@@ -5,7 +5,10 @@ except ImportError:
 
 from django.test import TestCase
 
-from django_k8s.cache.backends.memcached import get_addresses, AutoDiscoverPyLibMCCache
+from django_k8s.cache.backends.memcached import (
+    get_addresses, AutoDiscoverPyLibMCCache
+)
+from django_k8s.management.commands.checkmigrations import count_migrations
 
 
 class AutoDiscoverPyLibMCCacheTestCase(TestCase):
@@ -65,3 +68,12 @@ class AutoDiscoverPyLibMCCacheTestCase(TestCase):
         # Ensure no additonal calls are made for DNS resolution.
         cache._cache
         self.assertEqual(1, mock_gethost.call_count)
+
+
+class CheckMigrationsTestCase(TestCase):
+    def test_count_migrations(self):
+        # NOTE: Django test framework applies all migrations before our test.
+        # I am not sure how to disable this behavior or even if that is
+        # desirable. In any case, migration count is zero.
+        nmigrations = count_migrations()
+        self.assertEqual(0, nmigrations)
