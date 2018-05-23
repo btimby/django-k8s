@@ -1,7 +1,7 @@
 import time
 
 from django.core.management.base import BaseCommand
-from django.db import connections
+from django.db import connections, DEFAULT_DB_ALIAS
 
 try:
     from django import __version__
@@ -20,8 +20,31 @@ def test_connections():
             cursor.close()
 
 
+def _count_migrations_1_4_db(db_name):
+    from south.models import MigrationHistory
+    from south.migration import all_migrations
+
+    apps = all_migrations()
+    applied_migrations = MigrationHistory.objects.filter(
+        app_name__in=[app.app_label() for app in apps])
+    if db_name != DEFAULT_DB_ALIAS:
+        applied_migrations = applied_migrations.using(db_name)
+    applied_migrations_lookup = dict()
+
+    nmigrations = 0
+    for app in apps:
+        for migration in app:
+            full_name = migration.app_label() + '.' + migration.name()
+            if full_name not in applied_migrations_lookup:
+                nmigrations += 1
+    return nmigrations
+
+
 def count_migrations_1_4():
-    return 0
+    nmigrations = 0
+    for db_name in connections:
+        nmigrations += _count_migrations_1_4_db(db_name)
+    return nmigrations
 
 
 def count_migrations_1_7():
@@ -50,7 +73,6 @@ def count_migrations():
         return count_migrations_1_4()
     else:
         return count_migrations_1_7()
-
 
 
 class Command(BaseCommand):
