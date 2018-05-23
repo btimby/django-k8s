@@ -1,4 +1,5 @@
 [packages]
-django = "==${DJANGO}"
+django = "==1.10"
 mock = "==2.0.0"
 pylibmc = "==1.5.2"
+pyyaml = "*"
