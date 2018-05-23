@@ -41,3 +41,10 @@ script:
   - make test
 after_success:
   - pipenv run -- coveralls
+deploy:
+  provider: pypi
+  user: "Ben.Timby"
+  password:
+    secure: "lpETYLPpoeYReunSuUHCc40O+Dhk/ZrMOW95tAyZtQnrNhNqcwV0Q7yWQMT9mYZqqaoyr3VYgSMJCLAZJJuVKYADzY6Rg81nswnJq8W+IqmKxj+QcM75sv8Jvdv7MhOdFaqYdU8fkyyYwxY/5e+4G1lBUfMAB2FBN1BAsYYnbr4gNQk5MKF3vBzs5lbUChPWOhUNfPVBJps4MKhAExh57OC5R6QCJBimD1zXQvC+77bY0B6d01B7iJm8mqhGq1Hrqt5TBZw3gLuNFU5+FN2Ra7owaduzmx/yTMOaKV9Baj5Y6qV9Tjqms/dYa9aCQldSlfaMhckh4QPTTohNNf6h6riEv/Uo69NTO3OryE9LBruPcMx1XNv4SENTbHvQOugvRv071KAFdBKVhFRllXxHE39TyzY5rMfeCITwCR9gDT9SLshesPorZXXCKc5IxeoW/R2jbKHFLrKLG98Fhtvi22CptqaTUm3V9YUcWRFj9MUCaEgITwdgalxgjGEMxG/s1iOTHdKF1pjcqHBwmACoIAuFWVeSLj5UALA3J8u34DKlqbwkc9JNRd6eK8/7rulvwMgZWk4HuCFMrHU4QgTxb66VH4pdxyQcZGULIRbONYg2/5+zHczJDfW4Zp5cw7eX/RNKHiFBR+/ax53dTRF62tiHq7kx78SmvzRYgvg3xTk="
+  on:
+    tags: true

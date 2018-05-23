@@ -1,7 +1,11 @@
 .. image:: https://travis-ci.org/btimby/django-k8s.png
    :target: https://travis-ci.org/btimby/django-k8s
+
 .. image:: https://coveralls.io/repos/github/btimby/django-k8s/badge.svg?branch=master
    :target: https://coveralls.io/github/btimby/django-k8s?branch=master
+
+.. image:: https://badge.fury.io/py/django-k8s.svg
+    :target: https://badge.fury.io/py/django-k8s
 
 django-k8s
 ----------
