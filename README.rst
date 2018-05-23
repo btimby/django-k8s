@@ -11,17 +11,26 @@ Integration between Django and Kubernetes.
 Caching
 =======
 
-Service discovery for Memcache in Kubernetes. This cache backend accepts a
-single cache server host name. It performs DNS resolution on this host name and
-configures all returned hosts as cache servers.
+Service discovery for Memcached. Admittedly this will work with any service
+discovery that uses multiple A records for memcached servers. This allows the
+memcached client to properly distribute keys amongst memcached servers. AWS
+ElasticCache as well as Kubernetes and others are compatible with this scheme.
 
-It can optionally repeat service discovery periodically.
+If an error is received when trying to access a memcached server, DNS
+resolution is performed again (refreshing server list). This allows memcached
+servers to be added or removed without restarting the application.
 
-Expects a memcached configuration and implement the approach described below.
+More information on this approach is provided below.
 
 https://cloud.google.com/solutions/deploying-memcached-on-kubernetes-engine
 
-Therefore, you configure the backend such as:
+Given Memcached deployed to Kubernetes with the following command:
+
+.. code:: bash
+
+    helm install stable/memcached --name mycache --set replicaCount=3
+
+You could configure your application like this:
 
 .. code:: python
 
@@ -37,18 +46,25 @@ Migrations
 ==========
 
 One convenient way to handle Django migrations in Kubernetes is using a Job.
-Django application however expect the database to be available and migrated on
-startup. If the database is not migrated the application will error out and
-must be restarted. This is not graceful.
+However Django applications expect the database to be available and migrated on
+startup. Therefore some coordination is necessary. The application containers
+should wait for the migration job to complete before starting up.
 
-A management command is provided that can poll or wait for the configured
-database to become available and for the latest migration to be applied.
+This package provides a management command that polls the database to check for
+two conditions:
+
+1. That the database server is reachable.
+2. That all migrations have been applied.
+
+It can optionally wait for both of these conditions to be true. An exit code of
+``0`` indicates success. This management command could be part of your
+entrypoint, ensuring no Django application is started until these conditions
+are met.
+
+This technique is compatible with systems other than Kubernetes, the author has
+used it with Docker Compose as well.
 
 .. code:: bash
 
     $ python manage.py checkmigrations
     Migrations complete.
-
-The above will return code ``0`` if the database is available and migrations are
-complete or ``1`` if not. The optional ``--wait`` flag will cause the command to
-wait until both of these conditions are true.

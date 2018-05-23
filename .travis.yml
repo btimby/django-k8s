@@ -40,5 +40,4 @@ install:
 script:
   - make test
 after_success:
-  - pipenv run -- coverage combine django_k8s
-  - coveralls
+  - pipenv run -- coveralls
