@@ -1,9 +1,12 @@
 import time
 
 from django.core.management.base import BaseCommand
-from django.db.migrations.executor import MigrationExecutor
 from django.db import connections
 
+try:
+    from django import __version__
+except ImportError:
+    from django import VERSION as __version__
 
 
 def test_connections():
@@ -17,16 +20,37 @@ def test_connections():
             cursor.close()
 
 
-def count_migrations():
-    "Count the number of migrations not yet applied to database(s)"
+def count_migrations_1_4():
+    return 0
+
+
+def count_migrations_1_7():
+    from django.db.migrations.executor import MigrationExecutor
+
     nmigrations = 0
     for db_name in connections:
         connection = connections[db_name]
-        connection.prepare_database()
+
+
+        try:
+            connection.prepare_database()
+        except AttributeError:
+            pass
+
         executor = MigrationExecutor(connection)
         targets = executor.loader.graph.leaf_nodes()
         nmigrations += len(executor.migration_plan(targets))
     return nmigrations
+
+
+def count_migrations():
+    "Count the number of migrations not yet applied to database(s)"
+    # South is external.
+    if __version__[0] == 1 and __version__[1] < 7:
+        return count_migrations_1_4()
+    else:
+        return count_migrations_1_7()
+
 
 
 class Command(BaseCommand):
