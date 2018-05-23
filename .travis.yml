@@ -37,4 +37,7 @@ matrix:
 install:
   - make install
   - pipenv install django==${DJANGO}
-script: make test
+script:
+  - make test
+after_success:
+  - coveralls

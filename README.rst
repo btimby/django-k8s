@@ -2,6 +2,9 @@
    :alt: Travis CI Status
    :target: https://travis-ci.org/btimby/django-k8s
 
+.. image:: https://coveralls.io/repos/github/btimby/django-k8s/badge.svg?branch=master
+   :target: https://coveralls.io/github/btimby/django-k8s?branch=master
+
 django-k8s
 ----------
 
