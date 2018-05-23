@@ -3,4 +3,4 @@ install:
 	pipenv install --dev
 
 test:
-	cd django_k8s && pipenv run -- coverage run --include=django_k8s/* manage.py test django_k8s
+	cd django_k8s && pipenv run -- coverage run -p --include=django_k8s/* manage.py test django_k8s
