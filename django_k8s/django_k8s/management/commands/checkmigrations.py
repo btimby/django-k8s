@@ -87,7 +87,7 @@ class Command(BaseCommand):
                 nmigrations = count_migrations()
 
                 if nmigrations == 0:
-                    print('There are no pending migrations')
+                    print('Migrations complete')
                     exit(0)
 
                 print('There are %i pending migrations' % nmigrations)
