@@ -9,12 +9,16 @@ except ImportError:
     from django import VERSION as __version__
 
 
-def test_connections():
+def check_databases():
     for db_name in connections:
         connection = connections[db_name]
         cursor = connection.cursor()
         try:
             cursor.execute('SELECT (1)')
+            return True
+
+        except:
+            return False
 
         finally:
             cursor.close()
@@ -83,7 +87,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         while True:
-            if test_connections():
+            if check_databases():
                 nmigrations = count_migrations()
 
                 if nmigrations == 0:

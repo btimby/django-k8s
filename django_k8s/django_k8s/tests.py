@@ -8,7 +8,9 @@ from django.test import TestCase
 from django_k8s.cache.backends.memcached import (
     get_addresses, AutoDiscoverPyLibMCCache
 )
-from django_k8s.management.commands.checkmigrations import count_migrations
+from django_k8s.management.commands.checkmigrations import (
+    count_migrations, check_databases
+)
 
 
 class AutoDiscoverPyLibMCCacheTestCase(TestCase):
@@ -77,3 +79,6 @@ class CheckMigrationsTestCase(TestCase):
         # desirable. In any case, migration count is zero.
         nmigrations = count_migrations()
         self.assertEqual(0, nmigrations)
+
+    def test_check_databases(self):
+        self.assertTrue(check_databases())
