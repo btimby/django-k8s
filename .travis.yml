@@ -40,7 +40,7 @@ install:
 script:
 - make test
 after_success:
-- pipenv run -- coveralls
+- make coveralls
 deploy:
   provider: pypi
   user: Ben.Timby
