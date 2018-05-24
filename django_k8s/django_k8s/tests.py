@@ -6,7 +6,7 @@ except ImportError:
 from django.test import TestCase
 
 from django_k8s.cache.backends.memcached import (
-    get_addresses, AutoDiscoverPyLibMCCache
+    get_addresses, clear_client_on_error, AutoDiscoverPyLibMCCache
 )
 from django_k8s.management.commands.checkmigrations import (
     count_migrations, check_databases
@@ -70,6 +70,31 @@ class AutoDiscoverPyLibMCCacheTestCase(TestCase):
         # Ensure no additonal calls are made for DNS resolution.
         cache._cache
         self.assertEqual(1, mock_gethost.call_count)
+
+    def test_clear_client_on_error(self):
+        class FooError(Exception):
+            "Simple exception for assertion."
+
+        class Foo(object):
+            "Simple class to test decorator."
+
+            _client = True
+            _ncalls = 0
+
+            @clear_client_on_error
+            def foo(self):
+                self._ncalls += 1
+                raise FooError('Test error')
+
+        f = Foo()
+
+        # Should raise an exception after retrying.
+        with self.assertRaises(FooError):
+            f.foo()
+
+        # Ensure function is called twice and that client is cleared.
+        self.assertIsNone(f._client)
+        self.assertEqual(2, f._ncalls)
 
 
 class CheckMigrationsTestCase(TestCase):
