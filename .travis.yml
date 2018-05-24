@@ -1,50 +1,50 @@
 language: python
 python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
+- '2.7'
+- '3.5'
+- '3.6'
 env:
   global:
-    - PIPENV_VENV_IN_PROJECT=1
-    - PIPENV_IGNORE_VIRTUALENVS=1
+  - PIPENV_VENV_IN_PROJECT=1
+  - PIPENV_IGNORE_VIRTUALENVS=1
   matrix:
-    - DJANGO=1.4
-    - DJANGO=1.5
-    - DJANGO=1.6
-    - DJANGO=1.7
-    - DJANGO=1.8
-    - DJANGO=1.9
-    - DJANGO=1.10
-    - DJANGO=1.11
+  - DJANGO=1.4
+  - DJANGO=1.5
+  - DJANGO=1.6
+  - DJANGO=1.7
+  - DJANGO=1.8
+  - DJANGO=1.9
+  - DJANGO=1.10
+  - DJANGO=1.11
 matrix:
   exclude:
-    - python: "3.5"
-      env: DJANGO=1.4
-    - python: "3.5"
-      env: DJANGO=1.5
-    - python: "3.5"
-      env: DJANGO=1.6
-    - python: "3.5"
-      env: DJANGO=1.7
-    - python: "3.6"
-      env: DJANGO=1.4
-    - python: "3.6"
-      env: DJANGO=1.5
-    - python: "3.6"
-      env: DJANGO=1.6
-    - python: "3.6"
-      env: DJANGO=1.7
+  - python: '3.5'
+    env: DJANGO=1.4
+  - python: '3.5'
+    env: DJANGO=1.5
+  - python: '3.5'
+    env: DJANGO=1.6
+  - python: '3.5'
+    env: DJANGO=1.7
+  - python: '3.6'
+    env: DJANGO=1.4
+  - python: '3.6'
+    env: DJANGO=1.5
+  - python: '3.6'
+    env: DJANGO=1.6
+  - python: '3.6'
+    env: DJANGO=1.7
 install:
-  - make install
-  - pipenv install django==${DJANGO}
+- make install
+- pipenv install django==${DJANGO}
 script:
-  - make test
+- make test
 after_success:
-  - pipenv run -- coveralls
+- pipenv run -- coveralls
 deploy:
   provider: pypi
-  user: "Ben.Timby"
+  user: Ben.Timby
   password:
-    secure: "lpETYLPpoeYReunSuUHCc40O+Dhk/ZrMOW95tAyZtQnrNhNqcwV0Q7yWQMT9mYZqqaoyr3VYgSMJCLAZJJuVKYADzY6Rg81nswnJq8W+IqmKxj+QcM75sv8Jvdv7MhOdFaqYdU8fkyyYwxY/5e+4G1lBUfMAB2FBN1BAsYYnbr4gNQk5MKF3vBzs5lbUChPWOhUNfPVBJps4MKhAExh57OC5R6QCJBimD1zXQvC+77bY0B6d01B7iJm8mqhGq1Hrqt5TBZw3gLuNFU5+FN2Ra7owaduzmx/yTMOaKV9Baj5Y6qV9Tjqms/dYa9aCQldSlfaMhckh4QPTTohNNf6h6riEv/Uo69NTO3OryE9LBruPcMx1XNv4SENTbHvQOugvRv071KAFdBKVhFRllXxHE39TyzY5rMfeCITwCR9gDT9SLshesPorZXXCKc5IxeoW/R2jbKHFLrKLG98Fhtvi22CptqaTUm3V9YUcWRFj9MUCaEgITwdgalxgjGEMxG/s1iOTHdKF1pjcqHBwmACoIAuFWVeSLj5UALA3J8u34DKlqbwkc9JNRd6eK8/7rulvwMgZWk4HuCFMrHU4QgTxb66VH4pdxyQcZGULIRbONYg2/5+zHczJDfW4Zp5cw7eX/RNKHiFBR+/ax53dTRF62tiHq7kx78SmvzRYgvg3xTk="
+    secure: is0SJYNbQvqf1j7zj3gAIqqYQeI/HDoj9vjsqKdbsyCc4282q/x2yvRCA3cEEb9vhcUC2MBqYMFSYJfdNlK0MS/mwOYQM/dasTM1gvmqwTU6Uvfe9wkJ5aMxKtKmQ1O1uxww34kdg983yy117BHoEwTwHqYdjjBhhmDxuE2GGsZFQ8BGH3YtEchAc7dcWgO4JzFru/6WGHUFjUEqIck9FwR7F6BzpWn/G7tsfSsPd+kQ5HCV5z0IJSQpsXylfJJU+sa5wAVZQCTUIJkeTiLqmFeGcexUEYKeR6UOOwmNsWbgRdDkJAQSarBGzz+w3cgGWKaBg0ipMJ73dYnmoHpjy542fyjbZcKqo3m4bEGx1y4u9nnFQ8VPHhgrYm2RrLmBv+7H0mZmND7icDRRs/MNj+EHaq/zzshI1KzT07N6aAstrWvH2cFZVKHPFGpFNIr2/VqIilkm9qDbpaqABUt2NBIIPnhc93DQNc1v/B0MlVofRzuLOF9vSmHoLthaK360c+wUQNm+uYqzh0r9i3GLzcuz8S4cOHfLNANJ1ufc038az8ICDlnfWgOcrriTQ05mWq6M84PvlyhI0fGwpWq3DpzFkX5gm+hF0zMStQCI9t4ygRfOjvrUuEaURxneMyhnAn0iXZeb7ZrQBghuJOKf/D/q9qsrHaGNcW5dvikIfZQ=
   on:
     tags: true
