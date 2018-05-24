@@ -1,14 +1,17 @@
 """django-k8s"""
 import os
 
+from os.path import join as pathjoin
+from os.path import dirname
 from subprocess import check_output, CalledProcessError
 from setuptools import find_packages
 from setuptools import setup
 
 
-name = 'django-k8s'
+package_name = 'django-k8s'
 version_msg = '# Do not edit. See setup.py.{nl}__version__ = "{ver}"{nl}'
-version_py = os.path.join(os.path.dirname(__file__), package_name, 'version.py')
+version_py = pathjoin(
+    dirname(__file__), package_name.replace('-', '_'), 'version.py')
 
 # Get version from GIT or version.py.
 try:
@@ -28,13 +31,13 @@ with open(readme) as readme_file:
 
 
 setup(
-    name = name,
+    name = package_name,
     version = version_git,
     description = 'Integration between Django and Kubernetes.',
     long_description = long_description,
     author = 'Ben Timby',
     author_email = 'btimby@gmail.com',
-    url = 'http://github.com/btimby/' + name + '/',
+    url = 'http://github.com/btimby/' + package_name + '/',
     license = 'MIT',
     packages = [
         "django_k8s",
