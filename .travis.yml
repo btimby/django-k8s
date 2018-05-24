@@ -16,6 +16,7 @@ env:
   - DJANGO=1.9
   - DJANGO=1.10
   - DJANGO=1.11
+  - DJANGO=2.05
 matrix:
   exclude:
   - python: '3.5'
@@ -34,6 +35,8 @@ matrix:
     env: DJANGO=1.6
   - python: '3.6'
     env: DJANGO=1.7
+  - python: '2.7'
+    env: DJANGO=2.05
 install:
 - make install
 - pipenv install django==${DJANGO}
