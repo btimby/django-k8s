@@ -41,10 +41,14 @@ script:
 - make test
 after_success:
 - make coveralls
-deploy:
-  provider: pypi
-  user: Ben.Timby
-  password:
-    secure: is0SJYNbQvqf1j7zj3gAIqqYQeI/HDoj9vjsqKdbsyCc4282q/x2yvRCA3cEEb9vhcUC2MBqYMFSYJfdNlK0MS/mwOYQM/dasTM1gvmqwTU6Uvfe9wkJ5aMxKtKmQ1O1uxww34kdg983yy117BHoEwTwHqYdjjBhhmDxuE2GGsZFQ8BGH3YtEchAc7dcWgO4JzFru/6WGHUFjUEqIck9FwR7F6BzpWn/G7tsfSsPd+kQ5HCV5z0IJSQpsXylfJJU+sa5wAVZQCTUIJkeTiLqmFeGcexUEYKeR6UOOwmNsWbgRdDkJAQSarBGzz+w3cgGWKaBg0ipMJ73dYnmoHpjy542fyjbZcKqo3m4bEGx1y4u9nnFQ8VPHhgrYm2RrLmBv+7H0mZmND7icDRRs/MNj+EHaq/zzshI1KzT07N6aAstrWvH2cFZVKHPFGpFNIr2/VqIilkm9qDbpaqABUt2NBIIPnhc93DQNc1v/B0MlVofRzuLOF9vSmHoLthaK360c+wUQNm+uYqzh0r9i3GLzcuz8S4cOHfLNANJ1ufc038az8ICDlnfWgOcrriTQ05mWq6M84PvlyhI0fGwpWq3DpzFkX5gm+hF0zMStQCI9t4ygRfOjvrUuEaURxneMyhnAn0iXZeb7ZrQBghuJOKf/D/q9qsrHaGNcW5dvikIfZQ=
-  on:
-    tags: true
+jobs:
+  include:
+    - stage: deploy
+      python: '3.6'
+      deploy:
+        provider: pypi
+        user: Ben.Timby
+        password:
+          secure: is0SJYNbQvqf1j7zj3gAIqqYQeI/HDoj9vjsqKdbsyCc4282q/x2yvRCA3cEEb9vhcUC2MBqYMFSYJfdNlK0MS/mwOYQM/dasTM1gvmqwTU6Uvfe9wkJ5aMxKtKmQ1O1uxww34kdg983yy117BHoEwTwHqYdjjBhhmDxuE2GGsZFQ8BGH3YtEchAc7dcWgO4JzFru/6WGHUFjUEqIck9FwR7F6BzpWn/G7tsfSsPd+kQ5HCV5z0IJSQpsXylfJJU+sa5wAVZQCTUIJkeTiLqmFeGcexUEYKeR6UOOwmNsWbgRdDkJAQSarBGzz+w3cgGWKaBg0ipMJ73dYnmoHpjy542fyjbZcKqo3m4bEGx1y4u9nnFQ8VPHhgrYm2RrLmBv+7H0mZmND7icDRRs/MNj+EHaq/zzshI1KzT07N6aAstrWvH2cFZVKHPFGpFNIr2/VqIilkm9qDbpaqABUt2NBIIPnhc93DQNc1v/B0MlVofRzuLOF9vSmHoLthaK360c+wUQNm+uYqzh0r9i3GLzcuz8S4cOHfLNANJ1ufc038az8ICDlnfWgOcrriTQ05mWq6M84PvlyhI0fGwpWq3DpzFkX5gm+hF0zMStQCI9t4ygRfOjvrUuEaURxneMyhnAn0iXZeb7ZrQBghuJOKf/D/q9qsrHaGNcW5dvikIfZQ=
+        on:
+          tags: true
