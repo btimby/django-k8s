@@ -45,6 +45,8 @@ jobs:
   include:
     - stage: deploy
       python: '3.6'
+      env: DJANGO=1.11
+      script: echo "Deploying to PyPI ..."
       deploy:
         provider: pypi
         user: Ben.Timby
