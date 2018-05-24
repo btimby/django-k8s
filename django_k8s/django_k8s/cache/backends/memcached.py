@@ -31,7 +31,7 @@ def get_addresses(servers):
                 addr += ':' + str(port)
             addresses.append(addr)
 
-    # Return a list of tuples of (addr, port).
+    # Return a list of strings of "addr[:port]".
     return addresses
 
 

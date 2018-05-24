@@ -44,14 +44,14 @@ def _count_migrations_1_4_db(db_name):
     return nmigrations
 
 
-def count_migrations_1_4():
+def _count_migrations_1_4():
     nmigrations = 0
     for db_name in connections:
         nmigrations += _count_migrations_1_4_db(db_name)
     return nmigrations
 
 
-def count_migrations_1_7():
+def _count_migrations_1_7():
     from django.db.migrations.executor import MigrationExecutor
 
     nmigrations = 0
@@ -74,13 +74,13 @@ def count_migrations():
     "Count the number of migrations not yet applied to database(s)"
     # South is external.
     if __version__[0] == 1 and __version__[1] < 7:
-        return count_migrations_1_4()
+        return _count_migrations_1_4()
     else:
-        return count_migrations_1_7()
+        return _count_migrations_1_7()
 
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = 'Waits for database and migrations to be available and complete'
 
     def add_arguments(self, parser):
         parser.add_argument('--wait', action='store_true')
