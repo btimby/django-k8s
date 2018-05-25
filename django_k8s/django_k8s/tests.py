@@ -72,11 +72,13 @@ class AutoDiscoverPyLibMCCacheTestCase(TestCase):
         self.assertEqual(1, mock_gethost.call_count)
 
     def test_clear_client_on_error(self):
-        class FooError(Exception):
-            "Simple exception for assertion."
+        "Test decorator."
 
         class Foo(object):
             "Simple class to test decorator."
+
+            class Error(Exception):
+                "Simple exception for assertion."
 
             _client = True
             _ncalls = 0
@@ -84,12 +86,12 @@ class AutoDiscoverPyLibMCCacheTestCase(TestCase):
             @clear_client_on_error
             def foo(self):
                 self._ncalls += 1
-                raise FooError('Test error')
+                raise Foo.Error('Test error')
 
         f = Foo()
 
         # Should raise an exception after retrying.
-        with self.assertRaises(FooError):
+        with self.assertRaises(Foo.Error):
             f.foo()
 
         # Ensure function is called twice and that client is cleared.
@@ -102,8 +104,7 @@ class CheckMigrationsTestCase(TestCase):
         # NOTE: Django test framework applies all migrations before our test.
         # I am not sure how to disable this behavior or even if that is
         # desirable. In any case, migration count is zero.
-        nmigrations = count_migrations()
-        self.assertEqual(0, nmigrations)
+        self.assertEqual(0, count_migrations())
 
     def test_check_databases(self):
         self.assertTrue(check_databases())

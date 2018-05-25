@@ -36,7 +36,7 @@ def get_addresses(servers):
 
 
 def clear_client_on_error(f):
-    "Try memcache operation, on failure, clear cache and retry."
+    "Try memcache operation, on failure, clear cache and retry once."
     @wraps(f)
     def wrapper(self, *args, **kwargs):
         for i in range(2):
