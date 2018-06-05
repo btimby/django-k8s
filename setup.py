@@ -39,9 +39,7 @@ setup(
     author_email = 'btimby@gmail.com',
     url = 'http://github.com/btimby/' + package_name + '/',
     license = 'MIT',
-    packages = [
-        "django_k8s",
-    ],
+    packages = find_packages(),
     classifiers = (
           'Development Status :: 4 - Beta',
           'Intended Audience :: Developers',
