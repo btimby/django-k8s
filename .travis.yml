@@ -17,26 +17,6 @@ env:
   - DJANGO=1.10
   - DJANGO=1.11
   - DJANGO=2.0.5
-matrix:
-  exclude:
-  - python: '3.5'
-    env: DJANGO=1.4
-  - python: '3.5'
-    env: DJANGO=1.5
-  - python: '3.5'
-    env: DJANGO=1.6
-  - python: '3.5'
-    env: DJANGO=1.7
-  - python: '3.6'
-    env: DJANGO=1.4
-  - python: '3.6'
-    env: DJANGO=1.5
-  - python: '3.6'
-    env: DJANGO=1.6
-  - python: '3.6'
-    env: DJANGO=1.7
-  - python: '2.7'
-    env: DJANGO=2.0.5
 install:
 - make install
 - pipenv install django==${DJANGO}
@@ -45,6 +25,25 @@ script:
 after_success:
 - make coveralls
 jobs:
+  exclude:
+    - python: '3.5'
+      env: DJANGO=1.4
+    - python: '3.5'
+      env: DJANGO=1.5
+    - python: '3.5'
+      env: DJANGO=1.6
+    - python: '3.5'
+      env: DJANGO=1.7
+    - python: '3.6'
+      env: DJANGO=1.4
+    - python: '3.6'
+      env: DJANGO=1.5
+    - python: '3.6'
+      env: DJANGO=1.6
+    - python: '3.6'
+      env: DJANGO=1.7
+    - python: '2.7'
+      env: DJANGO=2.0.5
   include:
     - stage: deploy
       python: '3.6'
